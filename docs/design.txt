@@ -1,0 +1,99 @@
+Problem Statement:
+Haunted House Escape Game
+
+This program simulates an escape game within a haunted house. Players navigate through rooms, making directional choices ('left', 'right', 'forward', 'back') and interacting with their environment to progress or find the exit. The goal is to escape the haunted house by discovering the key and unlocking the final door.
+
+Nouns: Player, Rooms, Key, Directions, Game, Content, User, Input
+Verbs: Explore, Escape, Discover, Unlock
+
+HauntedHouseEscape
+Inputs:
+UserDirectionalInput
+Processing:
+
+InterpretUserInput
+DetermineCurrentRoom
+UpdatePlayerPosition
+CheckSpecialInteraction
+ShowEscapeConditions
+
+Outputs:
+
+DisplayRoomDescriptions
+PromptAvailableDirections
+DisplayInteractionMessages
+NotifyEscapeSuccess/failure
+
+Initialize player object with currentRoom, escaped, hasKey, roomDescriptions, previousRooms
+
+function exploreRoom():
+    userInput = Get user input
+
+    switch userInput:
+        case "left":
+            Update currentRoom to the left room
+            Push currentRoom to previousRooms
+        case "right":
+            Update currentRoom to the right room
+            Push currentRoom to previousRooms
+        case "forward":
+            if currentRoom is room 4:
+                if player has key:
+                    Set escaped to true
+                    Display escape message
+                else:
+                    Display message: need key to unlock
+            else if currentRoom is room 1, 2, or 3:
+                Update currentRoom to room 4
+                Push currentRoom to previousRooms
+        case "back":
+            if previousRooms is not empty:
+                Update currentRoom to the last room in previousRooms
+            else:
+                Display message: can't go back further
+        default:
+            Display message: invalid choice
+
+    if no specific output:
+        Display room description
+        if currentRoom is room 2 and player doesn't have key:
+            Ask player to take key behind painting
+            If confirmed, update hasKey and display message
+
+    Update game content with directions and input box
+
+    if escaped:
+        Hide input box
+        Restart game after 2 seconds
+
+function startGame():
+    Reset player data
+    Display welcome message
+    Call exploreRoom
+
+Call startGame
+
+Test Plan:
+Scenario: Player goes left
+
+Input: "left"
+Expected Output: Description of room 2
+Scenario: Player moves forward without a key
+
+Input: "forward"
+Expected Output: Message indicating the need for a key
+Scenario: Player finds and takes the key
+
+Input: "forward", (confirm "take key")
+Expected Output: Description of room 4 with a message about finding the key
+Scenario: Player escapes the haunted house
+
+Input: Appropriate sequence to reach the exit
+Expected Output: Congratulations message for escaping
+
+
+
+
+
+
+
